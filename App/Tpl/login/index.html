@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录——CCBC-7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/topheader.html" />
+        <div class="well">
+            <h3>登录：</h3>
+            <div class="control-group" id="name-c">
+            <p><input class="input-large" placeholder="E-mail" type="text" id="name"></p></div>
+            <div class="control-group" id="pass-c">
+            <p><input class="input-large" placeholder="密码" type="password" id="pass"></p></div>
+            <div class="alert alert-error" id="errorinfo" style="display:none">错误：用户名和密码不匹配</div>
+            <button class="btn btn-primary" onClick="logindo();">登录</button>&nbsp;&nbsp;&nbsp;<a href="http://openapi.baidu.com/oauth/2.0/authorize?client_id=l3wrD2mCUM6qsZVoYzLzocr8&response_type=code&redirect_uri=http%3A%2F%2Fccbc7.tk%2Flogin%2Fb&state=nzym&confirm_login=1">使用百度账号登录</a>&nbsp;&nbsp;&nbsp;
+            <span id="getnewpass" style="display:none"><a href="/login/resetpassword">重置密码</a></span>
+        </div>
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $("#name").keydown(function(e){
+            var key=e.which;
+            if(key==13){
+                logindo();
+            }
+        });
+        $("#pass").keydown(function(e){
+            var key=e.which;
+            if(key==13){
+                logindo();
+            }
+        });
+    });
+    function logindo(){
+        var name=$("#name").val();
+        var pass=$("#pass").val();
+        if(name==""){
+            $("#name-c").addClass("error");
+            $("#name").focus().select();
+        }else if(pass==""){
+            $("#pass-c").addClass("error");
+            $("#pass").focus().select();
+        }else{
+            $.get("/login/dologin",{
+                "email" : name,
+                "pass" : pass,
+            },function(data){
+                if(data=="success"){
+                    alert("登录成功！");
+                    window.location.href="/game";
+                }else if(data=="eps"){
+                    $("#errorinfo").show();
+					$("#getnewpass").show();
+                }else if(data=="error"){
+                    $("#errorinfo").html("错误：当前无法登录。").show();
+                }else if(data=="banned"){
+                    $("#errorinfo").html("错误：对不起，您的账号已经被封禁，请联系管理员。").show();
+                }else{
+                    $("#errorinfo").html(data).show();
+                }
+            });
+        }
+    }
+    </script>
+</body>
+</html>

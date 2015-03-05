@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+        <tr>
+        	<th>GID</th>
+            <th>Name</th>
+            <th>NorArea</th>
+            <th>Meta</th>
+            <th>HeroArea</th>
+            <th>AllQues</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="ulist" id="vo">
+        <tr>
+        	<td>{$vo.gid}</td>
+            <td><a href="#" onClick="getGroupInfo({$vo.gid})">{$vo.gname}</a><span class="label label-info">{$vo.gnum}人</span></td>
+            <eq name="vo.nrfin" value="1">
+            	<td bgcolor="#009966">{$vo.nrnum}/14</td>
+            <else />
+            	<td>{$vo.nrnum}/14</td>
+            </eq>
+            <td>{$vo.metanum}</td>
+            <td>{$vo.openareas}</td>
+            <eq name="vo.fmfin" value="1">
+                <td bgcolor="#009966">{$vo.allnum}/58</td>
+            <else />
+                <td>{$vo.allnum}/58</td>
+            </eq>
+        </tr>
+    </volist>
+    </tbody>
+</table>

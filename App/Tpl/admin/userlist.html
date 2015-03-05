@@ -1,0 +1,26 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>UID</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>GID</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="ulist" id="vo">
+        <tr>
+        	<td>{$vo.uid}</td>
+            <td><a href="http://ccbc7.tk/user/view/uid/{$vo.uid}" target="_blank">{$vo.name}</a>
+                <eq name="vo.type" value="0"><span class="label label-info">单人</span></eq>
+                <eq name="vo.type" value="1"><span class="label label-success">组队成员</span></eq>
+                <eq name="vo.type" value="2"><span class="label label-warning">出题组</span></eq>
+                <eq name="vo.type" value="4"><span class="label label-warning">管理员</span></eq>
+                <eq name="vo.type" value="6"><span class="label label-success">队长</span></eq>
+            </td>
+            <td>{$vo.email}</td>
+            <td>{$vo.gid}</td>
+        </tr>
+    </volist>
+    </tbody>
+</table>

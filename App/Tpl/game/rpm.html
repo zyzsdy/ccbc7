@@ -1,0 +1,16 @@
+<p>这是那些悬赏者给你的回复：<a href="javascript:;" onclick="closep();">【关闭】</a></p>
+<eq name="Think.session.gid" value="0">
+个人用户站内信功能暂不开放。
+<else/>
+<p>【收件箱】</p>
+<volist name="spmlist" id="vo">
+    <hr>
+    <p>
+    <eq name="vo.eu" value="1"><span style="font-size:12px;color:#CCC;">[已读]</span>
+    <else/><span style="font-size:12px;color:#CCC;" id="pm_yd{$vo.mid}"><a href="javascript:;" onclick="pm_readmail({$vo.mid})">[点击标为已读]</a></span>
+    </eq>
+    	<span style="font-size:12px;color:#CCC;">发送时间：{$vo.sendtime}</span>
+    </p>
+    <p>{$vo.content}</p>
+</volist>
+</eq>

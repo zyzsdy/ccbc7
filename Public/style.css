@@ -1,0 +1,36 @@
+body {
+    font-family: "微软雅黑", "Microsoft Yahei", SimHei, MicroHei;
+    background-color: #000;
+    color: #FFF;
+}
+#logo {
+    text-align: center;
+}
+.well{
+    background-color:#333;
+    border-color: #666;
+}
+.form-actions {
+    background-color:#333;
+}
+footer{
+    border-top: 1px solid #666;
+    padding-top: 22px;
+    text-align: center;
+}
+.liuyan {
+    text-align: center;
+    width: 61.8%;
+    margin: auto;
+    margin-top: 40px;
+}
+#ds-thread {
+	background: #000;
+	border-radius: 5px;
+}
+#ds-thread #ds-reset .ds-highlight{
+	color:#999 !important;
+}
+#ds-thread #ds-reset .ds-comment-body p {
+	color: #ffffff;
+}

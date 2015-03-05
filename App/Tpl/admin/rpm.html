@@ -1,0 +1,29 @@
+<h3>站内信：</h3>
+<p>【收件箱】</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Time</th>
+            <th>From</th>
+            <th>UID</th>
+            <th>内容</th>
+            <th>回复</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="rpmlist" id="vo">
+        <tr>
+        	<td>{$vo.mid}</td>
+            <td>{$vo.sendtime}</td>
+            <td><a href="javascript:;" onclick="getGroupInfo({$vo.sgid})">{$vo.sgname}
+            <eq name="vo.eu" value="2"><span class="label label-warning">提示缩减</span></eq>
+
+            </td>
+            <td>{$vo.suid}</td>
+            <td>{$vo.content}</td>
+            <td><a href="javascript:;" onclick="replymail({$vo.sgid})">回复</a></td>
+        </tr>
+    </volist>
+    </tbody>
+</table>

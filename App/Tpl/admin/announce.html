@@ -1,0 +1,23 @@
+<h3>系统公告：</h3>
+<p>添加公告：</p>
+<textarea class="span6" rows="5" placeholder="此处填入公告内容。" id="announcement"></textarea>
+<p><button class="btn btn-primary" onclick="announce();">发布</button></p>
+<p>历史公告：</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>发布时间</th>
+            <th>内容</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="annolist" id="vo">
+        <tr>
+        	<td>{$vo.id}</td>
+            <td>{$vo.posttime}</td>
+            <td>{$vo.content}</td>
+        </tr>
+    </volist>
+    </tbody>
+</table>

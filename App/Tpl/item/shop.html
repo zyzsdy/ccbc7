@@ -1,0 +1,28 @@
+<p>这虽然是我的商店，但是我不知道卖什么。</p>
+<eq name="Think.session.gid" value="0">
+	个人用户商店暂不开放
+<else/>
+	<p>当前金币数量：{$coinnum}</p>
+	<p>道具列表：</p>
+	<eq name="Think.session.type" value="1">
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/wuyongshi.png" alt="" width="25" height="25">无用的石头|2G|使用后30%概率获得1G</p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/timedust.png" alt="" width="25" height="25">时之尘|3G|使用后5次答题CD降低60%</p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/timesand.png" alt="" width="25" height="25">时之沙|8G|使用后10次答题CD降低80%</p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/tp.png" alt="" width="25" height="25">传送卷轴|12G|使用后可以打开一个新的区域</p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/nustone.png" alt="" width="25" height="25">贤者之石|25G|每16h可以直接将一道题目标为已完成状态</p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/sc.png" alt="" width="25" height="25">牺牲契约|25G|使用后提示价格降低3h（提示请通过阿童木联系出题组购买）</p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/hourglass.png" alt="" width="25" height="25">时光沙漏|25G|购买后所有答题CD降低20%</p>
+		<p>只有队长才能购买道具，请联系你的队长。</p>
+	</eq>
+	<eq name="Think.session.type" value="6">
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/wuyongshi.png" alt="" width="25" height="25">无用的石头|2G|使用后30%概率获得1G|<a href="javascript:;" onclick="byitem(0);">购买</a></p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/timedust.png" alt="" width="25" height="25">时之尘|3G|使用后5次答题CD降低60%|<eq name="item_cd_available" value="1"><a href="javascript:;" onclick="byitem(1);">购买</a><else/>[已售完]</eq></p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/timesand.png" alt="" width="25" height="25">时之沙|8G|使用后10次答题CD降低80%|<eq name="item_cd_available" value="1"><a href="javascript:;" onclick="byitem(2);">购买</a><else/>[已售完]</eq></p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/tp.png" alt="" width="25" height="25">传送卷轴|12G|使用后可以打开一个新的区域|<eq name="newArea" value="0"><a href="javascript:;" onclick="byitem(3);">购买</a><else/>[已售完]</eq></p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/nustone.png" alt="" width="25" height="25">贤者之石|25G|每16h可以直接将一道题目标为已完成状态|<eq name="item_zts_available" value="1"><a href="javascript:;" onclick="byitem(4);">购买</a><else/>[已售完]</eq></p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/sc.png" alt="" width="25" height="25">牺牲契约|25G|使用后提示价格降低3h（提示请通过阿童木联系出题组购买）|<eq name="item_tip_available" value="1"><a href="javascript:;" onclick="byitem(5);">购买</a><else/>[已售完]</eq></p>
+		<p><img src="http://ccbc7-static.stor.sinaapp.com/img/hourglass.png" alt="" width="25" height="25">时光沙漏|25G|购买后所有答题CD降低20%|<eq name="item_cd_available" value="1"><a href="javascript:;" onclick="byitem(6);">购买</a><else/>[已售完]</eq></p>
+	</eq>
+	<p>注意：购买后道具将立即生效。同一时间只能有一个减CD道具生效。提示打折将仅对购买道具后索取的提示生效。</p>
+</eq>
+<p><a href="javascript:;" onclick="closep();">【关闭】</a></p>

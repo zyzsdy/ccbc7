@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>酒馆——CCBC7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .c7-titlename {
+        font-size: 30px;
+    }
+    .c6-tite li a{
+        color: #FFF;
+    }
+    .c6-tite li a:hover {
+        color: #333;
+    }
+	.jiuguan{
+		width: 1200px;
+		height: 660px;
+		overflow: hidden;
+		margin: auto;
+	}
+	.p_popup{
+		width:800px;
+		height:500px;
+		background-color:rgba(0,0,0,0.70);
+		border-radius: 10px;
+		position: fixed;
+		z-index:10;
+		display:none;
+		overflow: auto;
+	}
+	.p_content{
+		padding: 20px;
+	}
+    </style>
+</head>
+<body>
+<div style="position:fixed;bottom:60px;left:60px;height:25px;width:210px;background-color:#FFF;font-size:14px;line-height:25px;display:none" id="newmsg">
+	<a href="/game/home" style="color:red">您有新消息啦~请刷新酒馆查看。</a>
+</div>
+<audio src="http://bcs.duapp.com/feelyblog/media/BGM-home.mp3" id="bgm" autoplay loop style="display:none"></audio>
+
+	<!--弹出层-->
+    <div class="p_popup" id="popup">
+    	<div class="p_title">
+        	<img src="http://ccbc7-static.stor.sinaapp.com/npcicon/niu.png" height="128" width="128" id="icon">
+            <span id="pname">【名字】</span>
+            <div class="pull-right"><a href="javascript:;" onClick="closep();">&times;</a></div>
+        </div>
+        <div class="p_content" id="p_content">
+        	对话内容
+        </div>
+    </div>
+
+<div class="container-fluid">
+    <!--顶栏-->
+    <div class="row-fluid">
+        <div class="span8">
+            <a href="/"><img src="http://ccbc7-static.stor.sinaapp.com/img/logom.jpg" height="96" width="200"></a>
+            <span class="c7-titlename">酒馆</span>
+        </div>
+        <div class="span4">
+            <ul class="nav nav-pills c6-tite pull-right">
+                <li><a href="/user">{$Think.session.name}</a></li>
+                <li><a onClick="unlogin();" href="#">注销</a></li>
+                <eq name="Think.session.type" value="2">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>
+                <eq name="Think.session.type" value="4">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>    
+            </ul>
+
+        </div>
+    </div>
+    <!--main container-->
+    <div class="jiuguan">
+    <eq name="newmail" value="0">
+    	<img src="http://ccbc7-static.stor.sinaapp.com/img/npc.jpg" width="1200" height="660" usemap="#Map">
+    <else/>
+    	<img src="http://ccbc7-static.stor.sinaapp.com/img/npca.jpg" width="1200" height="660" usemap="#Map">
+    </eq>
+        <map name="Map">
+          <area shape="rect" coords="355,227,416,305" href="javascript:;" onClick="pop_xiaok(0);">
+
+<eq name="lbstatus" value="0">
+          <area shape="rect" coords="447,290,513,365" href="javascript:;" onClick="pop_diao(0);">
+<else/>
+		  <area shape="rect" coords="447,290,513,365" href="javascript:;" onClick="pop_diao(1);">
+</eq>
+
+<eq name="newmail" value="0">
+          <area shape="rect" coords="513,246,589,339" href="javascript:;" onClick="pop_atom(0);">
+<else/>
+		  <area shape="rect" coords="513,246,589,339" href="javascript:;" onClick="pop_atom(4);">
+</eq>
+
+
+          <area shape="rect" coords="601,287,673,373" href="javascript:;" onClick="pop_ye(0);">
+          <area shape="rect" coords="677,238,761,347" href="javascript:;" onClick="pop_hundan(0);">
+          <area shape="rect" coords="764,311,795,345" href="javascript:;" onClick="pop_pika(0);">
+          <area shape="rect" coords="836,200,916,282" href="javascript:;" onClick="pop_xiaoha(0);">
+          <area shape="rect" coords="211,251,271,324" href="javascript:;" onClick="pop_7(0);">
+          <area shape="rect" coords="98,385,152,467" href="javascript:;" onClick="pop_niu(0);">
+          <area shape="rect" coords="233,375,310,458" href="javascript:;" onClick="pop_yiduo(0);">
+          <area shape="rect" coords="438,372,514,466" href="javascript:;" onClick="pop_lazhu(0);">
+          <area shape="rect" coords="573,385,645,461" href="javascript:;" onClick="pop_n(0);">
+          <area shape="rect" coords="810,369,879,449" href="javascript:;" onClick="pop_zhen(0);">
+          <area shape="rect" coords="984,345,1041,509" href="javascript:;" onClick="pop_yu(0);">
+          <area shape="rect" coords="992,577,1047,624" href="javascript:;" onClick="pop_xie(0);">
+          <area shape="rect" coords="698,413,771,494" href="javascript:;" onClick="pop_bing(0);">
+        </map>
+  </div>
+  
+  <!--
+  <div class="row-fluid">
+    	<div class="span12">
+
+        </div>
+    </div>
+    -->
+<div style="display:none" id="jd_temp">
+	<volist name="jd_list" id="vo">
+		<hr>
+		<p><h4><a href="javascript:;" onclick="jd_post({$vo.id})">{$vo.title}</a></h4></p>
+		<p><span style="font-size:12px;color:#EEE;">发布时间：{$vo.posttime}</span></p>
+	</volist>
+</div>
+
+<!--手机兼容性助手：START-->
+<div class="visible-phone">
+<a class="close" data-dismiss="alert" href="#" style="color:white;">&times;</a>
+<h3>手机兼容性辅助：</h3>
+<p>CCBC7不推荐使用手机访问，使用手机你可以无法使用某些页面。</p>
+<p>本页有大量的内容是手机兼容性辅助也无法完成的。</p>
+<p>真的请你来电脑上看吧。</p>
+<p>我能做到的就只有这些了：</p>
+<p><a href="/game/map">打开大地图</a></p>
+<p><a href="/game/announce">打开系统公告列表</a></p>
+<p><a href="/user">去个人中心</a></p>
+</div>
+<!--手机兼容性助手：END-->
+
+
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(e) {
+        cssresize_st();
+		$(window).resize(function(){
+			cssresize_st();
+		});
+		pop_niu(1);
+		var nmfinish="{$nmfinish}";
+		var fmfinish="{$fmfinish}";
+		var isgroup="{$Think.session.gid}";
+		if(isgroup=="0"&&nmfinish=="1"){
+			pop_system(0);
+		}
+		if(fmfinish=="1"){
+			pop_system(1);
+		}
+		$('body').keydown(function(e){
+            if(e.ctrlKey&&e.which==77){
+                var au=document.getElementById('bgm');
+                if(au.paused){
+                    au.play();
+                }else{
+                    au.pause();
+                }
+            }
+        });
+        $.get("/game/newmsg",{},function(data){
+			if(data==1) $("#newmsg").show(1000);
+			else $("#newmsg").hide(1000);
+    	});
+    	msgTimer = setInterval(function(){
+    		$.get("/game/newmsg",{},function(data){
+    			if(data==1) $("#newmsg").show(1000);
+    			else $("#newmsg").hide(1000);
+    		});
+    	},30000);
+    });
+    function jd_post(id){
+    	$.getJSON("/game/getpost",{
+    		"id" : id,
+    	},function(data){
+    		setpopup("lazhu","<p><a href=\"javascript:;\" onclick=\"pop_lazhu(2);\">【返回】</a></p>\
+    			<h4>"+data.title+"</h4>\
+    			<p><span style=\"color:#CCC;font-size:12px\">发布时间："+data.posttime+"</span></p><hr>\
+    			<div>"+data.content+"</div>\
+    			<p><a href=\"javascript:;\" onclick=\"closep();\"【关闭】</a></p>");
+    	});
+    }
+    function pm_send(){
+    	var content=$("#pm_content").val();
+    	$.get("/game/sendmail",{
+    		"content" : content,
+    	},function(data){
+    		alert(data);
+    		pop_atom(2);
+    	});
+    }
+    function pm_readmail(mid){
+    	$.get("/game/pmyd",{
+    		"mid" : mid,
+    	},function(data){
+    		if(data=="success"){
+    			$("#pm_yd"+mid).html("[已读]");
+    		}else{
+    			alert(data);
+    		}
+    	});
+    }
+	function pop_xiaok(num){
+		switch(num){
+			case 0:
+			setpopup("xiaok","<p>勇士，我只卖玩具不卖身</p>\
+				<p><a href=\"javascript:;\" onClick=\"closep();\">【切，没意思】</a></p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_xiaok(1);\">【那你这有些什么玩具？】</a></p>");break;
+			case 1:
+			$.get("/item/shop",{},function(data){setpopup("xiaok",data);});break;
+		}
+	}
+	function pop_diao(num){
+		switch(num){
+			case 0:
+			setpopup("diao","<p>怎么又是你啊！快来帮我找找我的钱，不知道掉哪了。</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_diao(3);\">【。。。。。。】</a></p>");break;
+			case 1:
+			setpopup("diao","<p>听说你是新来的勇士？怎么穿的那么寒酸？</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_diao(2);\">【你……（你这一身也不是破破烂烂的吗？）】</a></p>");break;
+			case 2:
+			setpopup("diao","<p>真晦气，怎么你还没走？算了，我这正好多了些钱，拿了赶紧从我眼前消失。</p>\
+				<p><a href=\"javascript:;\" onClick=\"diaocoin();\">【（从他那里拿过钱来）】</a></p>");break;
+			case 3:
+			setpopup("diao","<p>顺便说一下，我原来的名字叫“调贝勒”。</p><a href=\"javascript:;\" onClick=\"closep();\">【。。。。。。】</a></p>");break;
+		}
+	}
+	function diaocoin(){
+		$.get("/game/mrlb",{},function(data){
+			alert(data);
+			window.location.reload();
+		});
+	}
+	function pop_ye(num){
+		switch(num){
+			case 0:
+			setpopup("ye","<p>啊，你是勇士啊，刚太远了，我没看清，我是这里的女仆，小夜。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【你好（看来她的眼镜只是摆设啊）】</a></p>");break;
+		}
+	}
+	function pop_atom(num){
+		switch(num){
+			case 0:
+			setpopup("atom","<p>您好，客人，您要喝点什么么？</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_atom(1);\">【请给我一杯啤酒。】</a></p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_atom(2);\">【哦，不了，我想给悬赏者留张字条可以么？】</a></p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_atom(3);\">【哦，不了，我想看看悬赏者给我的回复。】</a></p>");break;
+			case 1:
+			setpopup("atom","<p>好的，请稍等。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【谢谢。】</a></p>");break;
+			case 2:
+			$.get("/game/spm",{},function(data){setpopup("atom",data)});break;
+			case 3:
+			$.get("/game/rpm",{},function(data){setpopup("atom",data)});break;
+			case 4:
+			setpopup("atom","<p>您好，客人，这里似乎有您的一封信。</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_atom(3);\">【哦，天啊，快把它给我！】</a></p>");break;
+		}
+	}
+	function pop_hundan(num){
+		switch(num){
+			case 0:
+			setpopup("hundan","<p>你好，年轻的勇士。</p><p><a href=\"javascript:;\" onClick=\"pop_hundan(1);\">【你好，老板娘。我们来找点乐子吧？】</a></p>");break;
+			case 1:
+			setpopup("hundan","<p>找乐子？不错的想法。不过，你真的有够英勇么？来看看这些悬赏吧。</p><p><a href=\"javascript:;\" onClick=\"pop_hundan(2);\">【听起来不错，还能赚些外快，不过真的有够刺激么？】</a></p><p><a href=\"javascript:;\" onClick=\"closep();\">【谢谢，但先不必了，请给我一杯柠檬水。】</a></p>");break;
+			case 2:
+			setpopup("hundan","<p>你准备好了么？</p><p><a href=\"javascript:;\" onClick=\"openmap();\">【是的，我的血液已经开始沸腾了。】</a></p><p><a href=\"javascript:;\" onClick=\"closep();\">【哦不，我想我还要休息休息。】</a></p>");break;
+		}
+	}
+	function pop_pika(num){
+		switch(num){
+			case 0:
+			setpopup("pika","<p>皮卡……丘……</p><p><a href=\"javascript:;\" onClick=\"pop_pika(1);\">【（他好像在和我说点什么？）你好，你是在和我说话吗？】</a></p>");break;
+			case 1:
+			setpopup("pika","<p>皮卡皮卡！（皮卡转了一下身子）</p><p><a href=\"javascript:;\" onClick=\"pop_pika(2);\">【好可爱，摸一下不会被电吧？】</a></p>");break;
+			case 2:
+			setpopup("pika","<p>不会！你要改密码什么的就来找我吧。</p><p><a href=\"/user\" >【（原来你会说人话啊）进入个人中心】</a></p><p><a href=\"javascript:;\" onClick=\"closep();\">【（还是算了，总觉得很危险）】</a></p>");break;
+		}
+	}
+	function pop_xiaoha(num){
+		switch(num){
+			case 0:
+			setpopup("ye","<p>您在看这个照片啊。他是我们以前的老板。可惜他支持的是意大利队，有一天他去楼顶看风景，我们再也没有看见过他。</p><p><a href=\"javascript:;\" onClick=\"pop_xiaoha(1);\">【哦，这样啊。】</a></p>");break;
+			case 1:
+			setpopup("xiaoha","<p>。。。。。。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【。。。。。。】</a></p>");break;
+		}
+	}
+	function pop_7(num){
+		switch(num){
+			case 0:
+			setpopup("7","<p>这似乎是张悬赏令，老七？好像在哪听过的样子。（你陷入了回忆）</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_7(1);\">【我想起来了】</a></p>\
+				<p><a href=\"javascript:;\" onClick=\"closep();\">【还是做点别的吧】</a></p>");break;
+			case 1:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;年轻人，您听说过席西碧大陆么？唉，席西碧大陆已经不比从前了，让我慢慢为您道来吧……</p><p><a href=\"javascript:;\" onClick=\"pop_7(2);\">【点击继续】</a></p>");break;
+            case 2:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;起初，上帝创造了世界，其中就有这片神奇的大陆，唔，姑且就叫它席西碧大陆吧。席西碧大陆按照地理划分为7个独立的国度，分别是魔法城镇，绿叶森林，冰湖雪原，琉璃群山，高地荒漠，草原运河，海底国度。这7个独立国度相接于一片葱绿的平原，上面有一个神秘的祭坛，据说是巴别塔的遗迹。</p><p><a href=\"javascript:;\" onClick=\"pop_7(3);\">【点击继续】</a></p>");break;
+            case 3:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;很久很久以前，在席西碧大陆上，不凡的能力是获得尊敬的唯一途径，有的人选择在自己的出生地度过平凡的一生，但也有不寻常的人，传说中的勇者，第一个将足迹遍布七国的游侠，赛文金斯坦。他的事迹早已成为了传说和歌谣，甚至有人说他在群山之巅和深深的海沟中找到了不死药，飞到月亮上找嫦娥玩儿去了……</p><p><a href=\"javascript:;\" onClick=\"pop_7(4);\">【点击继续】</a></p>");break;
+            case 4:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;越过席西碧大陆的东边的狭海，那是恶魔的自留地，连传说中的赛文金斯坦都不敢也不曾涉足。哦，终于说到咱们的恶魔了，上帝创造世界，恶魔干了什么呢？好吧，许多不好的事情同时也发生了……</p><p><a href=\"javascript:;\" onClick=\"pop_7(5);\">【点击继续】</a></p>");break;
+            case 5:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;让我想想……有什么可以比金钱更加邪恶的呢？</p><p><a href=\"javascript:;\" onClick=\"pop_7(6);\">【点击继续】</a></p>");break;
+            case 6:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;自从恶魔嫌弃上帝是个臭棋篓子之后，他就开始搅合席西碧大陆上的事儿了。各地居民开始相互猜疑，7国分裂为真正的7国，相互开放的区域寥寥无几。作为万恶之源的金钱也渐渐腐蚀着席西碧大陆的人们。</p><p><a href=\"javascript:;\" onClick=\"pop_7(7);\">【点击继续】</a></p>");break;
+            case 7:
+            setpopup("xiaoha","<p>&nbsp;&nbsp;&nbsp;&nbsp;所以，年轻的勇士啊，请明白，在这个崇尚“公平交换”的自由世界中，木有钱，您将寸步难行，对，木有错，如果您没钱，在这个世界里您只能在小小的酒馆里被NPC出卖色相啊不是被调戏，或者在被划出的安全领域里面溜达，除非，您可以用其他方式证明自己的能力和勇气，让人们回忆起这里曾经存在的英雄们，这样，也许您才可以继续您的冒险。</p><p><a href=\"javascript:;\" onClick=\"pop_7(8);\">【点击继续】</a></p>");break;
+            case 8:
+            setpopup("xiaoha","<p>对了，想挣钱的话，去酒馆吧，那里总是有些奇奇怪怪的任务，这里只接受本地货币哦。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【。。。。。。】</a></p>");break;
+		}
+	}
+	function pop_niu(num){
+		switch(num){
+			case 0:
+			setpopup("niu","<p>虽然我被烤在壁炉里，但是确实烤不死的哦。对了，有些事要告诉你。</p><p><a href=\"javascript:;\" onClick=\"pop_niu(1);\">【什么事？】</a></p><p><a href=\"javascript:;\" onClick=\"closep();\">【我暂时不感兴趣。】</a></p>");break;
+			case 1:
+			setpopup("niu","<p>系统公告：发布时间:{$announcement.posttime}</p><hr>\
+				<p>{$announcement.content}</p>\
+				<p><a href=\"/game/announce\" target=\"_blank\">【查看历史公告】</a></p>\
+				<p><a href=\"javascript:;\" onClick=\"closep();\">【关闭】</a></p>");break;
+		}
+	}
+	function pop_yiduo(num){
+		switch(num){
+			case 0:
+			setpopup("yiduo","<p>。。。</p><p><a href=\"javascript:;\" onClick=\"pop_yiduo(1);\">【。。。】</a></p>");break;
+			case 1:
+			setpopup("yiduo","<p>。。。。。。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【。。。。。。】</a></p>");break;
+		}
+	}
+	function pop_lazhu(num){
+		switch(num){
+			case 0:
+			setpopup("lazhu","<p>你好，年轻人。曾经我也是这样意气风发！</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_lazhu(1);\">【你好，大叔。】</a></p>");break;
+			case 1:
+			setpopup("lazhu","<p>小伙子，来和我喝一杯，我会告诉谁才是真的勇士！</p>\
+				<p><a href=\"javascript:;\" onClick=\"closep();\">【不了，我还要赶路。】</a></p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_lazhu(2);\">【好的，为了“献血喝农药”！】</a></p>");break;
+			case 2:
+			setpopup("lazhu","<p>进度播报：<a href=\"javascript:;\" onClick=\"closep();\">【关闭】</a></p>"+$("#jd_temp").html());
+		}
+	}
+	function pop_n(num){
+		switch(num){
+			case 0:
+			setpopup("n","<p>我是N酱。</p><p><a href=\"javascript:;\" onClick=\"pop_n(1);\">【嗯。】</a></p>");break;
+			case 1:
+			setpopup("n","<p>你可以简称我NHK酱。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【额。。。。。。】</a></p>");break;
+		}
+	}
+	function pop_yu(num){
+		switch(num){
+			case 0:
+			setpopup("yu","<p>嘘。。我是老羽。。不要让他们发现我？</p><p><a href=\"javascript:;\" onClick=\"pop_yu(1);\">【他们在追杀你么？】</a></p>");break;
+			case 1:
+			setpopup("yu","<p>不是的，这话一言难尽。</p><p><a href=\"javascript:;\" onClick=\"closep();\">【好吧，那我就不问了。】</a></p>");break;
+		}
+	}
+	function pop_zhen(num){
+		switch(num){
+			case 0:
+			setpopup("zhen","<p>有什么事嘛？</p><p><a href=\"javascript:;\" onClick=\"closep();\">【额，没有……（感觉很难接近的样子）】</a></p>");break;
+		}
+	}
+	function pop_xie(num){
+		switch(num){
+			case 0:
+			setpopup("xie","<p>老七把我画错了。</p><p><a href=\"javascript:;\" onClick=\"pop_xie(1);\">【真是不错的画风呢，和音乐节奏一致呢。】</a></p>");break;
+			case 1:
+			var au=document.getElementById('bgm');
+			if(au.paused){
+				setpopup("xie","<p>你还要听这BGM么？</p><p><a href=\"javascript:;\" onClick=\"pop_xie(2);\">【是的，我要听。】</a></p><p><a href=\"javascript:;\" onClick=\"pop_xie(3);\">【不用了。继续关着吧。】</a></p>");
+			}else{
+			setpopup("xie","<p>那我把音乐关了好了。</p>\
+				<p><a href=\"javascript:;\" onClick=\"pop_xie(3);\">【好的，关了吧。】</a></p><p><a href=\"javascript:;\" onClick=\"pop_xie(2);\">【不要，我要继续听。】</a></p>");
+			}break;
+			case 2:
+			var au=document.getElementById('bgm');
+			au.play();
+			setpopup("xie","<p>音乐继续播放。顺便说一下，按Ctrl+M组合键就可以开启/关闭音乐了。</p><a href=\"javascript:;\" onClick=\"closep();\">【好的，知道了。】</a></p>");break;
+			case 3:
+			var au=document.getElementById('bgm');
+			au.pause();
+			setpopup("xie","<p>音乐关掉了。顺便说一下，按Ctrl+M组合键就可以开启/关闭音乐了。</p><a href=\"javascript:;\" onClick=\"closep();\">【好的，知道了。】</a></p>");break;
+		}
+	}
+	function pop_bing(num){
+		switch(num){
+			case 0:
+			setpopup("bing","<p>这里似乎都没有杯子，我该在哪呢？</p><p><a href=\"javascript:;\" onClick=\"closep();\">【。。。。。。】</a></p>");break;
+		}
+	}
+	function pop_system(num){
+		switch(num){
+			case 0:
+			setpopup("hundan","<p>整片大陆都在摇晃，快离开这里。</p><p><a href=\"/game/ned\">【好的，我这就离开。】</a></p>");break;
+			case 1:
+			setpopup("hundan","<p>整片大陆都在摇晃，快离开这里。</p><p><a href=\"/game/ed\">【好的，我这就离开。】</a></p>");break;
+		}
+	}
+	function setpopup(person, html){
+		switch(person){
+			case "7":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/7.png");$("#pname").html("七");break;
+			case "atom":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/atom.png");$("#pname").html("阿童木");break;
+			case "bing":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/bing.png");$("#pname").html("冰块");break;
+			case "diao":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/diao.png");$("#pname").html("独调");break;
+			case "hundan":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/hundan.png");$("#pname").html("魂淡");break;
+			case "lazhu":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/lazhu.png");$("#pname").html("蜡烛");break;
+			case "n":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/n.png");$("#pname").html("N酱");break;
+			case "niu":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/niu.png");$("#pname").html("牛牛");break;
+			case "pika":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/pika.png");$("#pname").html("皮卡");break;
+			case "xie":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/xie.gif");$("#pname").html("螃蟹");break;
+			case "xiaoha":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/xiaoha.png");$("#pname").html("小哈");break;
+			case "xiaok":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/xiaok.png");$("#pname").html("小K");break;
+			case "ye":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/ye.png");$("#pname").html("小夜");break;
+			case "yiduo":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/yiduo.png");$("#pname").html("一朵");break;
+			case "yu":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/yu.png");$("#pname").html("老羽");break;
+			case "zhen":$("#icon").attr("src","http://ccbc7-static.stor.sinaapp.com/npcicon/zhen.png");$("#pname").html("小臻");break;
+		}
+		$("#p_content").html(html);
+		$("#popup").show(1000);
+	}
+    function unlogin(){
+        $.get("/login/unlogin",{},function(data){
+            if(data=="success"){
+                alert("成功注销");
+                window.location.href="/";
+            }else{
+                alert("注销失败。"+data);
+            }
+        });
+    }
+	function cssresize_st(){
+		//区域居中
+		var w=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+		var h=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+		$("#popup").css({
+			"left":(0.5*w-400)+"px",
+			"top":(0.5*h-250)+"px",
+		});
+	}
+	function openmap(){
+		window.location.href="/game/map";
+	}
+	function closep(){
+		$("#popup").hide(1000);
+	}
+	function byitem(num){
+		var usertype="{$Think.session.type}";
+		if(usertype!=6){
+			alert("只有队长才能购买商品哦。\n\n请和你的队长联系吧。");
+		}else{
+			itemName=["无用的石头","时之尘","时之沙","传送卷轴","贤者之石","牺牲契约","时光沙漏"];
+			var cmt=confirm("您确认要购买道具 "+itemName[num]+ "吗？\n\n购买后道具将立刻生效。");
+			if(cmt){
+				$.get("/item/buy",{
+					"itemnum" : num,
+				},function(data){
+					alert(data);
+					pop_xiaok(1);
+				});
+			}
+		}
+	}
+    </script>
+</body>
+</html>

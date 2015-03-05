@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>选择区域——CCBC7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .c7-titlename {
+        font-size: 30px;
+    }
+    .c6-tite li a{
+        color: #FFF;
+    }
+    .c6-tite li a:hover {
+        color: #333;
+    }
+	.map-area {
+		width: 1200px;
+		height: 803px;
+		background-image:url(http://ccbc7-static.stor.sinaapp.com/map/largemap.jpg);
+	}
+	.hot-area {
+		width: 1200px;
+		height: 803px;
+		position: relative;
+		top: -803px;
+		z-index: 5;
+		
+	}
+	.popUpConfirm {
+		height: 400px;
+		width: 600px;
+		position: fixed;
+		z-index: 10;
+		background-color: rgba(0,0,0,0.5);
+		border-radius: 18px;
+	}
+	.popUp-Description {
+		height: 300px;
+		padding: 12px;
+		padding-left: 40px;
+		padding-right: 40px;
+		overflow: auto;
+		background-image: ;
+		background-repeat: no-repeat;
+	}
+	.popUp-controls {
+		height: 100px;
+		text-align: center;
+		padding-top: 10px;
+	}
+	.popbtn {
+		font-family: 微软雅黑;
+	}
+    </style>
+</head>
+<body>
+<div style="position:fixed;bottom:60px;left:60px;height:25px;width:210px;background-color:#FFF;font-size:14px;line-height:25px;display:none" id="newmsg">
+	<a href="/game/home" style="color:red">您有新消息啦~请返回酒馆查看。</a>
+</div>
+<audio src="http://bcs.duapp.com/feelyblog/media/BGM-Map.mp3" id="bgm" autoplay style="display:none"></audio>
+	<!--弹出层-->
+	<div class="popUpConfirm" id="popUpConfirm" style="display:none">
+    	<div class="popUp-Description" id="pedc">
+        	<h3 style="text-align:center"><span id="pop-title">区域名称</span></h3>
+            <div id="pop-description">
+            	<p>这是区域描述。<p>
+            </div>
+        </div>
+        <div class="popUp-controls">
+        	<button class="btn btn-large btn-warning popbtn" id="openarea" style="display:none">开启这个区域</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-large btn-danger popbtn" id="entarea">进入这个区域</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-large popbtn" onClick="hidepopup();">取消</button>
+            <input type="hidden" id="nowarea" value="0">
+            <input type="hidden" id="isopen" value="0">
+        </div>
+    </div>
+    <div class="container-fluid">
+    <!--顶栏-->
+    <div class="row-fluid">
+        <div class="span8">
+            <a href="/"><img src="http://ccbc7-static.stor.sinaapp.com/img/logom.jpg" height="96" width="200"></a>
+            <span class="c7-titlename">选择你要前往的区域</span>
+        </div>
+        <div class="span4">
+            <ul class="nav nav-pills c6-tite pull-right">
+                <li><a href="/user">{$Think.session.name}</a></li>
+                <li><a onClick="unlogin();" href="#">注销</a></li>
+                <eq name="Think.session.type" value="2">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>
+                <eq name="Think.session.type" value="4">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>    
+            </ul>
+
+        </div>
+    </div>
+    <!--main container-->
+    <div class="row-fluid" style="height:803px;overflow:hidden;">
+    <a href="/game/home">【返回酒馆】</a>
+    <center>
+    	<div class="map-area">
+        
+        </div>
+    	<div class="hot-area">
+        	<img src="http://ccbc7-static.stor.sinaapp.com/map/none.png" width="1200" height="803" usemap="#Map" id="hotarea">
+            <map name="Map">
+              <area shape="poly" coords="122,184,156,187,164,172,187,172,198,196,194,220,199,229,207,230,205,247,215,259,239,265,253,262,261,271,273,266,278,285,276,296,292,312,294,335,287,336,278,354,280,363,312,371,317,386,308,403,302,412,288,417,285,427,270,431,263,441,278,458,265,469,247,479,239,489,226,482,213,491,196,496,186,500,180,515,176,528,164,525,151,535,139,533,129,537,120,533,111,539,89,524,93,516,80,511,77,500,71,492,69,483,56,484,47,483,39,465,39,453,53,436,44,425,31,417,21,412,4,429,4,281,8,275,20,279,26,271,20,257,28,241,52,228,67,223,80,227,94,218,95,208,111,208,107,196,121,185" id="area1">
+              
+              <area shape="poly" coords="222,26,194,63,178,84,174,101,182,119,170,119,162,132,165,152,178,162,199,181,202,201,195,218,214,223,237,216,246,231,272,234,282,237,297,237,319,236,338,225,355,237,376,239,392,243,406,232,417,242,434,232,440,214,443,191,437,179,448,164,466,142,481,139,490,116,483,101,479,90,472,61,477,48,458,37,473,16,452,5,396,6,386,12,367,6,317,6,306,16,296,8,275,8,265,24,236,26" id="area2">
+              
+              <area shape="poly" coords="510,43,503,60,518,72,513,81,517,96,505,101,500,105,514,119,525,104,539,36,549,26,567,32,572,17,579,10,593,15,603,9,622,6,653,8,649,18,667,36,686,29,685,19,699,23,718,27,731,36,738,48,746,43,758,30,775,37,760,47,750,51,767,74,756,84,760,92,773,112,758,122,749,131,743,115,735,106,727,115,717,127,711,145,704,162,690,166,685,185,676,172,668,180,657,192,650,193,647,182,637,184,626,169,626,154,598,136,575,120,558,135,549,130,536,110,529,111,517,126,497,103,500,53,515,35,528,38,536,36,552,49,530,43,510,72,539,87,516,86,536,100,509,54,523,47,542,73,521,118" id="area3">
+              
+              <area shape="poly" coords="541,139,564,147,578,140,597,156,617,183,608,202,593,200,579,218,573,236,590,240,626,220,637,240,629,269,632,286,647,298,644,321,646,329,647,344,662,352,676,362,668,384,657,382,633,372,611,360,579,376,567,392,553,384,528,378,508,354,494,343,477,332,477,312,464,280,459,254,461,234,469,210,488,187,497,177,511,167,521,153,522,136" id="area4">
+              <area shape="poly" coords="671,209,687,193,704,184,714,168,732,142,739,148,751,135,782,114,799,117,809,123,821,131,840,137,838,150,849,157,842,183,870,198,878,225,866,249,859,259,863,267,842,297,848,319,837,354,828,385,814,391,789,386,758,428,741,425,715,444,707,435,714,418,701,413,680,422,667,421,646,426,632,425,620,412,628,401,654,402,672,400,684,393,681,368,667,347,679,328,686,320,681,297,677,283,679,265,690,271,697,255,692,231" id="area5">
+              
+              <area shape="poly" coords="321,430,358,455,407,472,433,478,457,446,483,455,475,471,517,498,532,524,532,555,534,571,563,582,526,621,544,630,566,628,580,632,590,631,599,647,591,661,594,675,582,688,569,680,559,696,526,715,499,709,490,717,477,716,470,703,458,700,446,691,436,726,425,720,411,723,400,733,377,742,355,746,340,740,321,732,304,727,288,721,270,736,254,728,240,722,226,721,214,709,198,684,200,658,205,642,195,632,172,647,134,615,145,597,152,583,149,572,161,558,183,549,199,544,185,528,191,503,224,490,242,496,258,483,274,471,282,458,273,441,287,432,295,424,303,419,308,415,319,419" id="area6">
+              <area shape="poly" coords="574,445,588,459,599,462,624,444,645,454,663,448,688,460,719,456,739,461,758,458,752,443,772,429,806,434,799,444,817,462,809,470,781,473,775,495,793,519,801,542,781,566,800,587,790,601,789,613,778,626,766,621,760,633,758,654,713,660,694,656,674,669,656,665,649,651,649,633,626,608,617,612,605,627,595,619,583,620,571,615,569,602,576,589,581,579,587,563,607,549,618,534,606,518,593,517,574,518,560,504,571,491,568,477,565,467,561,453" id="area7">
+              
+              
+              <area shape="poly" coords="1122,12,1134,34,1147,42,1142,55,1151,66,1149,83,1148,100,1139,106,1141,120,1130,135,1135,151,1152,150,1158,167,1168,181,1167,207,1165,222,1154,226,1151,241,1160,249,1174,258,1172,276,1166,283,1171,303,1162,321,1156,313,1144,313,1133,324,1134,342,1143,351,1155,363,1167,364,1170,392,1160,407,1151,416,1161,423,1164,443,1168,459,1160,478,1149,493,1148,536,1141,545,1146,550,1137,556,1144,591,1124,626,1115,621,1083,663,1068,691,1042,708,1040,721,1022,741,1008,757,987,759,968,771,944,772,938,767,917,765,891,763,867,742,847,754,852,763,844,769,832,764,813,772,806,763,795,776,779,768,774,781,761,786,735,770,709,746,684,754,663,759,651,754,639,755,621,749,637,734,657,731,663,718,675,711,712,702,723,713,770,701,780,684,798,672,805,666,845,657,862,646,867,628,866,615,870,598,882,584,906,576,921,581,932,570,932,551,935,538,937,520,952,502,959,489,974,474,985,459,984,432,991,411,995,387,986,374,983,362,996,346,1009,335,1016,343,1011,352,1007,361,1006,374,1007,383,1017,381,1036,380,1051,375,1063,367,1067,355,1068,346,1078,337,1082,328,1076,314,1067,309,1056,315,1039,311,1025,304,1037,293,1042,284,1052,284,1070,284,1080,275,1080,252,1066,245,1052,230,1061,211,1057,200,1053,192,1060,179,1057,171,1068,154,1076,161,1085,145,1084,134,1078,125,1075,111,1085,102,1089,92,1084,79,1106,65,1111,45,1116,33,1117,20" id="area8">
+              
+              <area shape="poly" coords="356,351,467,350,470,376,483,386,482,408,470,409,473,432,439,438,437,451,395,453,394,438,364,440,360,412,347,409,343,385,357,380" id="area9">
+            </map>
+            
+      </div>
+    </center>
+    </div>
+    
+    <!------手机兼容性辅助-------->
+<div class="visible-phone">
+<a class="close" data-dismiss="alert" href="#" style="color:white;">&times;</a>
+<h3>手机兼容性辅助：</h3>
+<p>CCBC7不推荐使用手机访问，使用手机你可以无法使用某些页面。</p>
+<p>在不兼容手机的页面，我们启用了手机兼容性辅助装置，你可以通过这里进行你无法通过手机屏幕完成的操作。</p>
+<p><a href="javascript:;" onClick="phoneClick(1)">点击区域A</a></p>
+<p><a href="javascript:;" onClick="phoneClick(2)">点击区域B</a></p>
+<p><a href="javascript:;" onClick="phoneClick(3)">点击区域C</a></p>
+<p><a href="javascript:;" onClick="phoneClick(4)">点击区域D</a></p>
+<p><a href="javascript:;" onClick="phoneClick(5)">点击区域E</a></p>
+<p><a href="javascript:;" onClick="phoneClick(6)">点击区域F</a></p>
+<p><a href="javascript:;" onClick="phoneClick(7)">点击区域G</a></p>
+<p><a href="javascript:;" onClick="phoneClick(9)">点击普通区Meta</a></p>
+<eq name="finMeta.open" value="1">
+<p><a href="javascript:;" onClick="phoneClick(8)">点击FinalMeta</a></p>
+</eq>
+</div>
+<!------手机兼容性辅助--END------>
+
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function unlogin(){
+        $.get("/login/unlogin",{},function(data){
+            if(data=="success"){
+                alert("成功注销");
+                window.location.href="/";
+            }else{
+                alert("注销失败。"+data);
+            }
+        });
+    }
+	$(document).ready(function(e) {
+		$('body').keydown(function(e){
+            if(e.ctrlKey&&e.which==77){
+                var au=document.getElementById('bgm');
+                if(au.paused){
+                    au.play();
+                }else{
+                    au.pause();
+                }
+            }
+        });
+    	$.get("/game/newmsg",{},function(data){
+			if(data==1) $("#newmsg").show(1000);
+			else $("#newmsg").hide(1000);
+    	});
+    	msgTimer = setInterval(function(){
+    		$.get("/game/newmsg",{},function(data){
+    			if(data==1) $("#newmsg").show(1000);
+    			else $("#newmsg").hide(1000);
+    		});
+    	},30000);
+        $("#area1").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area1_hot.png");
+        });
+		$("#area1").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area2").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area2_hot.png");
+        });
+		$("#area2").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area3").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area3_hot.png");
+        });
+		$("#area3").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area4").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area4_hot.png");
+        });
+		$("#area4").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area5").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area5_hot.png");
+        });
+		$("#area5").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area6").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area6_hot.png");
+        });
+		$("#area6").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area7").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/area7_hot.png");
+        });
+		$("#area7").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area8").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/finmeta_hot.png");
+        });
+		$("#area8").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area9").mouseover(function(e) {
+            $("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/normeta_hot.png");
+        });
+		$("#area9").mouseout(function(){
+			$("#hotarea").attr("src","http://ccbc7-static.stor.sinaapp.com/map/none.png");
+		});
+		$("#area1").click(function(){
+			var isopen="{$A.open}";
+			var fin="{$A.meta}";
+			if(isopen==0){
+				popUp(1,"高地荒漠",
+				"　　虽然临海，但干燥的洋流以及和其他地域的群山屏障使得暖湿气流难以到达，形成了七国最大的荒漠，若想进入此地，火辣的太阳和干燥的气候是最大的敌人。这里的人民被称为“沙人”，民风淳朴且剽悍，7国最强壮的战士就在这里诞生。我们还不能进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(1,"高地荒漠",
+				"　　虽然临海，但干燥的洋流以及和其他地域的群山屏障使得暖湿气流难以到达，形成了七国最大的荒漠，若想进入此地，火辣的太阳和干燥的气候是最大的敌人。这里的人民被称为“沙人”，民风淳朴且剽悍，7国最强壮的战士就在这里诞生。这个区域探险要小心。",
+				isopen,fin);
+			}
+		});
+		$("#area2").click(function(){
+			var isopen="{$B.open}";
+			var fin="{$B.meta}";
+			if(isopen==0){
+				popUp(2,"冰湖雪原",
+				"　　席西碧大陆最西北处，这个国度又被成为永冬之地，常年白雪皑皑，人们在深水湖周围聚居，最大的深水湖中有两个小岛，是当地居民崇拜的寒神所在地。冰湖雪原的特产就是深水鱼，是席西碧大陆最棒的美味。如果涉足这里，请带好足够的毛皮衣。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(2,"冰湖雪原",
+				"　　席西碧大陆最西北处，这个国度又被成为永冬之地，常年白雪皑皑，人们在深水湖周围聚居，最大的深水湖中有两个小岛，是当地居民崇拜的寒神所在地。冰湖雪原的特产就是深水鱼，是席西碧大陆最棒的美味。如果涉足这里，请带好足够的毛皮衣。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area3").click(function(){
+			var isopen="{$C.open}";
+			var fin="{$C.meta}";
+			if(isopen==0){
+				popUp(3,"魔法城镇",
+				"　　最北边的魔法城镇是目前席西碧大陆最繁荣的地方，地处极北却拥有温泉和不冻港，是7国经济最发达的地方，也是魔法的发源地之一。城镇周围生长着由魔法守卫的巨大红叶林，有几条可以并行3辆马车的大道在这个国家的中心——补天石处汇合，传说中的赛文金斯坦正是被它赋予了过于常人的智慧。散落在魔法城镇各地的补天石碎片被称为贤者之石，是魔法城镇最为珍贵的产物。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(3,"魔法城镇",
+				"　　最北边的魔法城镇是目前席西碧大陆最繁荣的地方，地处极北却拥有温泉和不冻港，是7国经济最发达的地方，也是魔法的发源地之一。城镇周围生长着由魔法守卫的巨大红叶林，有几条可以并行3辆马车的大道在这个国家的中心——补天石处汇合，传说中的赛文金斯坦正是被它赋予了过于常人的智慧。散落在魔法城镇各地的补天石碎片被称为贤者之石，是魔法城镇最为珍贵的产物。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area4").click(function(){
+			var isopen="{$D.open}";
+			var fin="{$D.meta}";
+			if(isopen==0){
+				popUp(4,"绿叶森林",
+				"　　绿叶森林位于魔法城镇的南端，是一片被森林守卫的平原，几条从琉璃群山上发源的河流由南向北流过，滋润着这片沃土，它是7国重要的木材来源地，这里的人们居住在树屋上，树冠相连成为城市。哦对了，这里熊出没。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(4,"绿叶森林",
+				"　　绿叶森林位于魔法城镇的南端，是一片被森林守卫的平原，几条从琉璃群山上发源的河流由南向北流过，滋润着这片沃土，它是7国重要的木材来源地，这里的人们居住在树屋上，树冠相连成为城市。哦对了，这里熊出没。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area5").click(function(){
+			var isopen="{$E.open}";
+			var fin="{$E.meta}";
+			if(isopen==0){
+				popUp(5,"琉璃群山",
+				"　　海拔最高的地方，河流发源地，冰川形成的琉璃世界蔚为壮观，天险众多，从未被征服，这里的居民生活在山洞之中，洞穴相连形成一个庞大的系统，地下河沟通着各个城市，是7国最重要的矿产来源地。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(5,"琉璃群山",
+				"　　海拔最高的地方，河流发源地，冰川形成的琉璃世界蔚为壮观，天险众多，从未被征服，这里的居民生活在山洞之中，洞穴相连形成一个庞大的系统，地下河沟通着各个城市，是7国最重要的矿产来源地。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area6").click(function(){
+			var isopen="{$F.open}";
+			var fin="{$F.meta}";
+			if(isopen==0){
+				popUp(6,"草原运河",
+				"　　最南边的国度，热带草原，拥有最大的湖泊和人工运河，海底国度的流亡后裔大多聚居于此，大运河就是他们与本地居民合作的产物。草原的本地游牧社会和流亡后裔建立农耕社会并存，是7国最重要的农业产地。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(6,"草原运河",
+				"　　最南边的国度，热带草原，拥有最大的湖泊和人工运河，海底国度的流亡后裔大多聚居于此，大运河就是他们与本地居民合作的产物。草原的本地游牧社会和流亡后裔建立农耕社会并存，是7国最重要的农业产地。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area7").click(function(){
+			var isopen="{$G.open}";
+			var fin="{$G.meta}";
+			if(isopen==0){
+				popUp(7,"海底国度",
+				"　　失落的文明，本来是7国最发达最繁荣的地方，魔法达到顶峰水平，但由于过于傲慢和贪婪终于使得上帝和魔鬼联手毁灭了这个国度，现在她正沉睡在海底，被诅咒的漩涡包围，已是一片死域，只有水底的遗迹能彰显她昨日的辉煌。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(7,"海底国度",
+				"　　失落的文明，本来是7国最发达最繁荣的地方，魔法达到顶峰水平，但由于过于傲慢和贪婪终于使得上帝和魔鬼联手毁灭了这个国度，现在她正沉睡在海底，被诅咒的漩涡包围，已是一片死域，只有水底的遗迹能彰显她昨日的辉煌。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area8").click(function(){
+			var isopen="{$finMeta.open}";
+			var fin="{$finMeta.meta}";
+			if(isopen==0){
+				popUp(8,"恶魔的自留地",
+				"　　越过席西碧大陆的东边的狭海，就是恶魔的自留地，一个巨大到完全不科学的火山喷发形成的岛屿，传说火山下方直通地狱，恶魔老人家一生气就会让火山喷发，结果岩浆就逐渐堆成了这个地方，毒气弥漫，无人涉足。哦对了，失落的海底国度留下了恶魔的一张星图，但其中意义早已无人知晓了……不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(8,"恶魔的自留地",
+				"　　越过席西碧大陆的东边的狭海，就是恶魔的自留地，一个巨大到完全不科学的火山喷发形成的岛屿，传说火山下方直通地狱，恶魔老人家一生气就会让火山喷发，结果岩浆就逐渐堆成了这个地方，毒气弥漫，无人涉足。哦对了，失落的海底国度留下了恶魔的一张星图，但其中意义早已无人知晓了……允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#area9").click(function(){
+			var isopen="{$norMeta.open}";
+			var fin="{$norMeta.meta}";
+			if(isopen==0){
+				popUp(9,"七国中央",
+				"　　传说是巴别塔的遗址，也是一个神秘的祭坛，民间称之为“七星祭坛”，无人知道会带来什么。不可进入这个区域。",
+				isopen,fin);
+			}else{
+				popUp(9,"七国中央",
+				"　　传说是巴别塔的遗址，也是一个神秘的祭坛，民间称之为“七星祭坛”，无人知道会带来什么。允许进入这个区域。",
+				isopen,fin);
+			}
+		});
+		$("#entarea").click(function(){
+			var nowarea=$("#nowarea").val();
+			var isopen=$("#isopen").val();
+			if(isopen==0){
+				return false;
+			}else{
+				var area="";
+				switch(nowarea){
+					case "1":area="A";break;
+					case "2":area="B";break;
+					case "3":area="C";break;
+					case "4":area="D";break;
+					case "5":area="E";break;
+					case "6":area="F";break;
+					case "7":area="G";break;
+					case "8":area="M";break;
+					case "9":area="N";break;
+					default:return false;
+				}
+				window.location.href="/game/section/"+area;
+			}
+		});
+		$("#openarea").click(function(){
+			var showOp="{$showOp}";
+			if(showOp!=1){
+				alert("只有队长才可开启新区域。");
+			}else{
+				var nowArea=$("#nowarea").val();
+				if(nowArea<1||nowArea>7){
+					alert("当前区域设定不正确。");
+				}else{
+					var cmt=confirm("确定要开启这个区域？\n\n一旦开启，在完成META前无法依靠自身力量进入别的区域哦！");
+					if(cmt){
+						$.get("/game/openarea",{
+							"area" : nowArea,
+						},function(data){
+							alert(data);
+							window.location.reload();
+						});
+					}
+				}
+			}
+		});
+		cssresize_st();
+		$(window).resize(function(){
+			cssresize_st();
+		});
+    });
+	function cssresize_st(){
+		//区域居中
+		var w=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+		var h=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+		$("#popUpConfirm").css({
+			"left":(0.5*w-300)+"px",
+			"top":(0.5*h-200)+"px",
+		});
+	}
+	function hidepopup(){
+		$("#popUpConfirm").hide(300);
+	}
+	function popUp(area,title,desc,isOpen,fin){
+		var showOp="{$showOp}";
+		if(area==8||area==9) showOp=0;
+		$("#nowarea").val(area);
+		$("#pop-title").html(title);
+		$("#pop-description").html(desc);
+		if(fin==1){
+			$("#pedc").css("background-image","url(http://ccbc7-static.stor.sinaapp.com/img/fin.png)");
+		}else{
+			$("#pedc").css("background-image","");
+		}
+		if(isOpen==0){
+			if(showOp==1){
+				$("#openarea").show();
+			}else{
+				$("#openarea").hide();
+			}
+			$("#entarea").html("不能进入此区域").addClass("disabled");
+			$("#isopen").val(0);
+		}else{
+			$("#openarea").hide();
+			$("#entarea").html("进入这个区域").removeClass("disabled");
+			$("#isopen").val(1);
+		}
+		$("#popUpConfirm").show(450);
+	}
+	//手机兼容性辅助函数
+	function phoneClick(mor){
+		$("#area"+mor).click();
+	}
+    </script>
+</body>
+</html>

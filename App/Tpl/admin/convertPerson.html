@@ -1,0 +1,41 @@
+<p>转换到个人组队</p>
+<p>UID:<input type="text" id="uid"></p>
+<button onclick="conv();">转换</button>
+<hr>
+<p>待转换个人：</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>UID</th>
+            <th>REGTime</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>info</th>
+            <th>GID</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="ulist" id="vo">
+        <tr>
+            <td>{$vo.uid}</td>
+            <td>{$vo.regtime}</td>
+            <td>{$vo.email}</a></td>
+            <td>{$vo.name}</td>
+            <td>{$vo.info}</td>
+            <td>{$vo.gid}</td>
+        </tr>
+    </volist>
+    </tbody>
+</table>
+<script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+<script>
+    function conv(){
+        var uid=$("#uid").val();
+        $.get("/admin/getConvertPerson",{
+            "uid" : uid,
+        },function(data){
+            alert(data);
+            window.location.reload();
+        });
+    }
+</script>

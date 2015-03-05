@@ -1,0 +1,59 @@
+<h3>提交记录条件查询</h3>
+<p>请输入查询条件：</p>
+<p>
+<select id="key" class="span2">
+  <option value="uid" selected>UID</option>
+  <option value="gid">GID</option>
+  <option value="uname">用户名</option>
+  <option value="gname">组队名</option>
+  <option value="tmid">题目</option>
+  <option value="answer">答案</option>
+  <option value="res">判定状态</option>
+</select>
+<select id="way" class="span2">
+  <option value="equal">等于</option>
+  <option value="like">包含</option>
+</select>
+<input type="text" id="cond" class="span3">
+ 按照 
+<select id="order" class="span2">
+  <option value="id" selected>提交时间</option>
+  <option value="uid">UID</option>
+  <option value="gid">GID</option>
+  <option value="uname">用户名</option>
+  <option value="gname">组队名</option>
+  <option value="tmid">题目</option>
+  <option value="answer">答案</option>
+  <option value="res">判定状态</option>
+</select>
+<select id="orderway" class="span2">
+	<option value="">升序</option>
+    <option value="desc" selected>降序</option>
+</select></p>
+<p><button class="btn" onClick="doquery();">查询</button></p>
+
+<p>查询结果：</p>
+<table width="100%" class="table table-bordered">
+	<thead>
+    	<tr>
+        	<th>ID</th>
+            <th>提交时间</th>
+            <th>组队名</th>
+            <th>用户名</th>
+            <th>题目</th>
+            <th>答案</th>
+            <th>状态</th>
+        </tr>
+    </thead>
+    <volist name="result" id="vo">
+    <tr>
+    	<td>{$vo.id}</td>
+        <td>{$vo.stime}</td>
+        <td><a href="#" onClick="getGroupInfo({$vo.gid})">{$vo.gname}</a></td>
+        <td>{$vo.uname}</td>
+        <td>{$vo.tmid}</td>
+        <td>{$vo.answer}</td>
+        <td>{$vo.res}</td>
+    </tr>
+    </volist>
+</table>

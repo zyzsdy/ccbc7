@@ -1,0 +1,42 @@
+<h3>图片上传：</h3>
+<p>这里的图片上传是题目图片上传专用。服务器资源宝贵，请勿用于其他用途。</p>
+<p>图片大小限制2MB。超量的请麻烦自己压缩一下。<b>只接受PNG格式</b></p>
+<p>附：无论你的图片是什么样的，请务必压缩成8位颜色。</p>
+<p>由于服务器限制，当你点击上传后本页面会被刷新，请不要惊慌。看到上传成功提示后重新点回本页来即可。</p>
+<p>&nbsp;</p>
+<form action="/admin/uploaddo" method="post" enctype="multipart/form-data">
+<p>题目ID：<input type="text" class="span3" name="up_tmid">请务必填写标准的题目ID，如A2、B6、EM、NM、MM。</p>
+<p>版本号：<input type="text" class="span1" name="up_ver">请填写数字，不要和之前的冲突。</p>
+<p>动态水印位置：<select name="up_mark">
+  <option value="lu">左上</option>
+  <option value="ru">右上</option>
+  <option value="lb" selected>左下</option>
+  <option value="rb">右下</option>
+</select></p>
+<p>图片文件：<input type="file" name="up_file"></p>
+<p><input type="submit" value="上传" class="btn"></p>
+</form>
+<p>&nbsp;</p>
+
+<p>已上传图片列表：</p>
+<p>链接位置是相对地址，直接把这个地址复制到题目编辑器的“添加图片”的链接里即可。</p>
+<table class="table table-bordered" style="width:100%;">
+	<thead>
+    	<tr>
+        	<th>题目ID</th>
+            <th>版本号</th>
+            <th>实际位置</th>
+            <th>链接位置</th>
+            <th>水印位置</th>
+        </tr>
+    </thead>
+    <volist name="imglist" id="vo">
+    	<tr>
+        	<td>{$vo.tmid}</td>
+            <td>{$vo.ver}</td>
+            <td><a href="{$vo.oriurl}" target="_blank">{$vo.oriurl}</a></td>
+            <td><a href="{$vo.lnkurl}" target="_blank">{$vo.lnkurl}</a></td>
+            <td>{$vo.mpos}</td>
+        </tr>
+    </volist>
+</table>

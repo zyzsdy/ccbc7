@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>补充些信息吧——CCBC-7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/topheader.html" />
+        <div class="well">
+            <h3>请补充完整以下信息</h3>
+            <p><a class="btn btn-inverse btn-large" href="/reg/regproc" target="_blank">查看注册流程</a></p>
+            <hr>
+            <form class="form-horizontal">
+            <fieldset>
+                <div class="control-group" id="email-c">
+                    <label class="control-label" for="email">邮箱地址<span style="color:#F00">*</span>：</label>
+                    <div class="controls">
+                        <input type="text" id="email">
+                        <p id="email-t">请填入有效的邮箱地址，我们将以此联系你。</p>
+                    </div>
+                </div>
+                <div class="control-group" id="name-c">
+                    <label class="control-label" for="name">显示昵称：</label>
+                    <div class="controls">
+                        <input type="hidden" id="name" value="{$uname}">
+                        <span>{$uname}</span>
+                    </div>
+                </div>
+                <input type="hidden" id="password" value="{$bdid}">
+                <div class="control-group" id="info-c">
+                    <label class="control-label" for="info">个性签名：</label>
+                    <div class="controls">
+                        <textarea class="span3" rows="5" id="info"></textarea>
+                        <p id="info-t">提交个性签名，来方便别人找到你。</p>
+                        <p>标有 <span style="color:#F00">*</span> 的为必填项。</p>
+                        <div id="message" class="alert alert-error" style="display:none">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" onClick="regit();">确认注册</button>
+                </div>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function regit(){
+        var ec=0;
+        var email=$("#email").val();
+        var name=$("#name").val();
+        if(email==""){
+            $("#email-c").removeClass("success").addClass("error");
+            $("#email-t").html("E-mail不能为空。");
+            ec++;
+        }
+        var pass=$("#password").val();
+        if(ec==0){
+        $.get("/reg/checkinfo",{
+            "email" : encodeURI(email),
+            "name" : encodeURI(name),
+        },function(data){
+            data=data.split(",");
+            if(data[0]==1){
+                $("#email-c").removeClass("success").addClass("error");
+                $("#email-t").html("E-mail已被使用。");
+            }else{
+                $("#email-c").removeClass("error").addClass("success");
+                $("#email-t").html("通过。");
+            }
+            if(data[0]==0){
+                var info=$("#info").val();
+                $.post("/reg/insert",{
+                    "name" : name,
+                    "email" : email,
+                    "pass" : pass,
+                    "info" : info,
+					"type" : "BDID",
+                },function(data){
+                    if(data=="success"){
+                        alert("注册成功。");
+                        window.location.href="/";
+                    }else{
+                        $("#message").html(data).show();
+                    }
+                });
+            }
+        });
+        }
+    }
+    </script>
+</body>
+</html>

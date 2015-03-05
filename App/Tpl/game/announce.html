@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>系统公告——CCBC7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .c7-titlename {
+        font-size: 30px;
+    }
+    .c6-tite li a{
+        color: #FFF;
+    }
+    .c6-tite li a:hover {
+        color: #333;
+    }
+	.timu-toolbar {
+		position: fixed;
+		bottom: 0;
+		height: 70px;
+		background-color: rgba(0,0,0,0.7);
+		border-radius: 9px 9px 0 0;
+	}
+	.pdanswer {
+		position: fixed;
+		height: 200px;
+		width: 360px;
+		background-color: rgba(0,0,0,0.7);
+		border-radius: 10px;
+		text-align: center;
+	}
+	.ts-title {
+		color: black;
+	}
+    .anno-item{
+        border-style: block;
+        border-width: 5px;
+        border-color: #CCC;
+        border-radius: 10px;
+        margin: 30px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+    <!--顶栏-->
+    <div class="row-fluid">
+        <div class="span8">
+            <a href="/"><img src="http://ccbc7-static.stor.sinaapp.com/img/logom.jpg" height="96" width="200"></a>
+            <span class="c7-titlename"></span>
+        </div>
+        <div class="span4">
+            <ul class="nav nav-pills c6-tite pull-right">
+                <li><a href="/user">{$Think.session.name}</a></li>
+                <li><a onClick="unlogin();" href="#">注销</a></li>
+                <eq name="Think.session.type" value="2">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>
+                <eq name="Think.session.type" value="4">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>    
+            </ul>
+
+        </div>
+    </div>
+    <!--main container-->
+    <div class="row-fluid">
+    	<h3>系统公告记录：</h3>
+        <volist name="annolist" id="vo">
+            <div class="span4 offset4 anno-item">
+                <span style="font-size:12px;color:#CCC;">发布时间：{$vo.posttime}</span>
+                <p>{$vo.content}</p>
+            </div>
+        </volist>
+
+
+    </div>
+
+
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function unlogin(){
+        $.get("/login/unlogin",{},function(data){
+            if(data=="success"){
+                alert("成功注销");
+                window.location.href="/";
+            }else{
+                alert("注销失败。"+data);
+            }
+        });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<h3>进度播报：</h3>
+<p>添加新文章：</p>
+<p><input type="text" class="span6" placeholder="此处填写标题" id="jd_title"></p>
+<textarea class="span6" rows="5" placeholder="此处填写内容。" id="jd_content"></textarea>
+<p><button class="btn btn-primary" onclick="jd_post();">发布</button></p>
+<p>历史文章：</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>发布时间</th>
+            <th>标题</th>
+            <th>内容</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="jdlist" id="vo">
+        <tr>
+        	<td>{$vo.id}</td>
+            <td>{$vo.posttime}</td>
+            <td>{$vo.title}</td>
+            <td>{$vo.content}</td>
+        </tr>
+    </volist>
+    </tbody>
+</table>

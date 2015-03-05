@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{$Think.session.name}--个人中心--CCBC-7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .c7-titlename {
+        font-size: 30px;
+    }
+    .c6-tite li a{
+        color: #FFF;
+    }
+    .c6-tite li a:hover {
+        color: #333;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+    <!--顶栏-->
+    <div class="row-fluid">
+        <div class="span8">
+            <a href="/"><img src="http://ccbc7-static.stor.sinaapp.com/img/logom.jpg" height="96" width="200"></a>
+            <span class="c7-titlename">{$Think.session.name}的个人中心</span>
+        </div>
+        <div class="span4">
+            <ul class="nav nav-pills c6-tite pull-right">
+                <li><a href="/user">{$Think.session.name}</a></li>
+                <li><a onClick="unlogin();" href="#">注销</a></li>
+                <eq name="Think.session.type" value="2">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>
+                <eq name="Think.session.type" value="4">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>    
+            </ul>
+
+        </div>
+    </div>
+    <!--main container-->
+    <div class="row-fluid">
+        <div class="span7 offset1">
+            <p>UID: {$uid}</p>
+            <h2>{$name}</h2>
+            <p>用户类型：
+                <eq name="type" value="0"><span class="label label-info">暂无组队</span></eq>
+                <eq name="type" value="1"><span class="label label-success">组队成员</span></eq>
+                <eq name="type" value="2"><span class="label label-warning">出题组成员</span></eq>
+                <eq name="type" value="4"><span class="label label-warning">管理员</span></eq>
+                <eq name="type" value="6"><span class="label label-success">队长</span></eq>
+            </p>
+            <p>个人简介：</p>
+            <p>{$info}</p>
+            <p>&nbsp;</p>
+            <p><a href="/user/view/uid/{$uid}" target="_blank">进入自己的个人页面</a></p>
+            <hr>
+            
+            <if condition="(Think.session.type eq 1) OR (Think.session.type eq 6)">
+                <p>组队信息：</p>
+                <p>所属队伍：GID {$gid}</p>
+                <div class="well">
+                    <h4>{$gname}<span class="label label-info">{$gnum}人</span></h4>
+                    <p>队伍简介：</p>
+                    <p>{$ginfo}</p>
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>成员昵称</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="label label-success">队长</span><a href="/user/view/uid/{$u0}">{$gn0.name}</a></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <eq name="u1" value="0">
+                            <td><span style="color:#999;">暂无</span></td>
+                            <td>&nbsp;</td>
+                        <else />
+                            <td><a href="/user/view/uid/{$u1}">{$gn1.name}</a><eq name="gn1.type" value="0"><span class="label label-warning">等待确认邀请</span></eq></td>
+                            <td>&nbsp;</td>
+                        </eq>
+                        </tr>
+                        <tr>
+                        <eq name="u2" value="0">
+                            <td><span style="color:#999;">暂无</span></td>
+                            <td>&nbsp;</td>
+                        <else />
+                            <td><a href="/user/view/uid/{$u2}">{$gn2.name}</a><eq name="gn2.type" value="0"><span class="label label-warning">等待确认邀请</span></eq></td>
+                            <td>&nbsp;</td>
+                        </eq>
+                        </tr>
+                        <tr>
+                        <eq name="u3" value="0">
+                            <td><span style="color:#999;">暂无</span></td>
+                            <td>&nbsp;</td>
+                        <else />
+                            <td><a href="/user/view/uid/{$u3}">{$gn3.name}</a><eq name="gn3.type" value="0"><span class="label label-warning">等待确认邀请</span></eq></td>
+                            <td>&nbsp;</td>
+                        </eq>
+                        </tr>
+                        <tr>
+                        <eq name="u4" value="0">
+                            <td><span style="color:#999;">暂无</span></td>
+                            <td>&nbsp;</td>
+                        <else />
+                            <td><a href="/user/view/uid/{$u4}">{$gn4.name}</a><eq name="gn4.type" value="0"><span class="label label-warning">等待确认邀请</span></eq></td>
+                            <td>&nbsp;</td>
+                        </eq>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                
+            </if>
+
+            <eq name="Think.session.type" value="0">
+                <volist name="inviteInfo" id="vo">
+                <div class="row-fluid">
+                    <div class="span10 offset1">
+                        <h4>{$vo.sgname}</h4>
+                        <p><span class="label label-info">{$vo.sgnum}人队伍</span>邀请你加入。<code>发送时间：{$vo.sendtime}</code></p>
+                        <p>队长：{$vo.un0}</p>
+                        <p>队伍简介：{$vo.sginfo}</p>
+                        <p><button class="btn btn-primary" onClick="accInvite({$vo.iid});">接受</button><button class="btn btn-danger" onClick="defInvite({$vo.iid});">拒绝</button></p>
+                        <hr>
+                    </div>
+                </div>
+                </volist>
+            
+                <p>组队信息：</p>
+                <p>你还没有组队。</p>
+                <p>创建一支队伍：</p>
+                <div class="well">
+                    <form class="form-horizontal"><fieldset>
+                        <div class="control-group" id="gname-c">
+                            <label class="control-label" for="gname">队伍名：</label>
+                            <div class="controls">
+                                <input type="text" id="gname">
+                                <p id="gname-t">请输入组队名，不能是特殊字符，可以为汉字。2~36个字符。</p>
+                            </div>
+                        </div>
+                        <div class="control-group" id="ginfo-c">
+                            <label class="control-label" for="ginfo">队伍简介：</label>
+                            <div class="controls">
+                                <textarea class="span5" rows="5" id="ginfo"></textarea>
+                                <p id="ginfo-t">请输入队伍简介，当你邀请其他人参加队伍时，他们会看到这些话。</p>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="control-group" id="vcode-c">
+                            <label class="control-label" for="vcode">验证码：</label>
+                            <div class="controls">
+                                <input type="text" id="vcode">
+                                <p id="vcode-t">请输入你在报名指引那里获得的验证码。</p>
+                                <div id="message" class="alert alert-error" style="display:none">&nbsp;</p>
+                            </div>
+                        </div>
+                        -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary disabled" onClick="doit();">报名已截止</button>
+                            <button type="reset" class="btn">清空表单</button>
+                        </div>
+                    </fieldset></form>
+                </div>
+                
+            </eq>
+            
+            
+        </div>
+        <!--右侧栏-->
+        <div class="span4">
+            <ul class="nav nav-pills nav-stacked">
+                <h3>功能列表</h3>
+                <li><a href="/user/updateinfo">修改资料</a></li>
+                <li><a href="/standing">当前已有队伍</a></li>
+                <li><a href="/user/nglist">未入队用户列表</a></li>
+            </ul>
+        
+        </div>
+    </div>
+
+
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function unlogin(){
+        $.get("/login/unlogin",{},function(data){
+            if(data=="success"){
+                alert("成功注销");
+                window.location.href="/";
+            }else{
+                alert("注销失败。"+data);
+            }
+        });
+    }
+    function doit(){
+    	alert("报名已截止。");
+    }
+    </script>
+</body>
+</html>

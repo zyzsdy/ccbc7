@@ -1,0 +1,79 @@
+<h3>队伍{$gid}—{$gname}（{$gnum}人）：</h3>
+<p>队伍简介：{$info}</p>
+<p>队伍成员：</p>
+<table width="100%" class="table table-bordered">
+	<tr><th>Pos</th><th>UID</th><th>用户名</th><th>注册邮箱</th></tr>
+    <tr><td>0</td><td>{$u0}</td><td>{$user0.name}</td><td>{$user0.email}</td></tr>
+    <tr><td>1</td><td>{$u1}</td><td>{$user1.name}</td><td>{$user1.email}</td></tr>
+    <tr><td>2</td><td>{$u2}</td><td>{$user2.name}</td><td>{$user2.email}</td></tr>
+    <tr><td>3</td><td>{$u3}</td><td>{$user3.name}</td><td>{$user3.email}</td></tr>
+    <tr><td>4</td><td>{$u4}</td><td>{$user4.name}</td><td>{$user4.email}</td></tr>
+</table>
+<hr>
+<p>答题状况：</p>
+<table width="100%" class="table table-bordered">
+	<tr><td colspan="9">黄色底色：区域开放；绿色底色：该题完成</td></tr>
+    <volist name="sec" id="vo">
+    <tr>
+    	<eq name="vo.open" value="1">
+    		<td bgcolor="#929900">区域{$vo.name}</td>
+        <else/>
+        	<td>区域{$vo.name}</td>
+        </eq>
+        <volist name="vo['prob']" id="po">
+        	<eq name="po.fin" value="1">
+            	<td bgcolor="#66CC00">{$vo.name}-{$key+1}</td>
+            <else/>
+            	<td>{$vo.name}-{$key+1}</td>
+            </eq>
+        </volist>
+        <eq name="vo.meta" value="1">
+            <td bgcolor="#66CC00">{$vo.name}-M</td>
+        <else/>
+            <td>{$vo.name}-M</td>
+        </eq>
+    </tr>
+    </volist>
+    <tr>
+    	<td>Meta</td>
+        <eq name="normalmeta" value="1">
+        	<td colspan="4" bgcolor="#66CC00">普通Meta</td>
+        <else/>
+        	<td colspan="4">普通Meta</td>
+        </eq>
+        <eq name="finalmeta" value="1">
+        	<td colspan="4" bgcolor="#66CC00">Final Meta</td>
+        <else/>
+        	<td colspan="4">Final Meta</td>
+        </eq>
+    </tr>
+</table>
+
+<p>状态：<eq name="newareaflag" value="1">可以开放新区<else/>不可开放新区</eq> &nbsp;
+硬币数量：{$coinnum} &nbsp;
+上次错误时间：{$errortime} &nbsp;</p>
+<p>道具状态：冷却系数：{$cdr} 剩余冷却次数：{$cdt} 提示罚时系数：{$tipr} 上次砸题石使用时间：{$zts}</p>
+<p>&nbsp;</p>
+<p>最近100条提交：</p>
+<table class="table table-bordered" width="100%">
+	<thead>
+    	<tr>
+        	<th>ID</th>
+          <th>提交时间</th>
+            <th>用户名</th>
+            <th>题目</th>
+            <th>答案</th>
+            <th>状态</th>
+        </tr>
+    </thead>
+    <volist name="laststatus" id="vo">
+    	<tr>
+        	<td>{$vo.id}</td>
+            <td>{$vo.stime}</td>
+            <td>{$vo.uname}</td>
+            <td>{$vo.tmid}</td>
+            <td>{$vo.answer}</td>
+            <td>{$vo.res}</td>
+        </tr>
+    </volist>
+</table>

@@ -1,0 +1,34 @@
+<table width="100%" class="table table-bordered">
+	<thead>
+    	<tr>
+        	<th>ID</th>
+            <th>提交时间</th>
+            <th>组队名</th>
+            <th>用户名</th>
+            <th>题目</th>
+            <th>答案</th>
+            <th>状态</th>
+        </tr>
+    </thead>
+    <tr>
+    	<td colspan="7">状态含义：OK - 答案正确； Error - 答案错误； Cooling - 冷却中； Est - 程序出错</td>
+    </tr>
+    
+    <volist name="status" id="vo">
+    <tr>
+    	<td>{$vo.id}</td>
+        <td>{$vo.stime}</td>
+        <td><a href="#" onClick="getGroupInfo({$vo.gid})">{$vo.gname}</a></td>
+        <td>{$vo.uname}</td>
+        <td>{$vo.tmid}</td>
+        <td>{$vo.answer}</td>
+        <td>{$vo.res}</td>
+    </tr>
+    </volist>
+</table>
+<div class="pagination pull-right">
+  <ul>
+    <li><a href="#" onClick="getPrevStatus({$nowoffset});">&lt;&lt;</a></li>
+    <li><a href="#" onClick="getNextStatus({$nowoffset})">&gt;&gt;</a></li>
+  </ul>
+</div>

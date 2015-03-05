@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册页面——CCBC-7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <style>
+    .baiduicon{
+		display: inline-block;
+		width:28px;
+		height:28px;
+		line-height: 28px;
+		background-image: url("http://apps.bdimg.com/developer/static/1407011849/console/social/img/provider-icons.png");
+		background-position: 0 -66px;
+		margin-top: 1px;
+	}
+    </style>
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/topheader.html" />
+        <div class="well">
+        	<h3>提示：比赛已经结束了。现在你可以创建一个新账号来回顾完整的比赛过程。</h3>
+            <h3>填写以下信息，创建一个用户</h3>
+            <p><a class="btn btn-inverse btn-large" href="/reg/regproc" target="_blank">查看注册流程</a></p>
+            <p><a class="btn btn-large" href="http://openapi.baidu.com/oauth/2.0/authorize?client_id=l3wrD2mCUM6qsZVoYzLzocr8&response_type=code&redirect_uri=http%3A%2F%2Fccbc7.tk%2Flogin%2Fb&state=nzym&confirm_login=1"><span class="baiduicon"></span>百度用户可以直接登录</a></p>
+            <hr>
+            <form class="form-horizontal">
+            <fieldset>
+                <div class="control-group" id="email-c">
+                    <label class="control-label" for="email">邮箱地址<span style="color:#F00">*</span>：</label>
+                    <div class="controls">
+                        <input type="text" id="email">
+                        <p id="email-t">请填入有效的邮箱地址，这将作为你的登录凭证。</p>
+                    </div>
+                </div>
+                <div class="control-group" id="name-c">
+                    <label class="control-label" for="name">显示昵称<span style="color:#F00">*</span>：</label>
+                    <div class="controls">
+                        <input type="text" id="name">
+                        <p id="name-t">允许输入汉字，数字，字母，连字符和下划线，这将作为其他人看到你的名字。2-36个字符。</p>
+                    </div>
+                </div>
+                <div class="control-group" id="password-c">
+                    <label class="control-label" for="password">密码<span style="color:#F00">*</span>：</label>
+                    <div class="controls">
+                        <input type="password" id="password">
+                        <p id="password-t">设置你的密码。允许字母、数字和符号，请不要使用汉字。</p>
+                    </div>
+                </div>
+                <div class="control-group" id="repass-c">
+                    <label class="control-label" for="repass">重复密码<span style="color:#F00">*</span>：</label>
+                    <div class="controls">
+                        <input type="password" id="repass">
+                        <p id="repass-t">把上一个框中的密码再输入一次，来确认你是否输入正确。</p>
+                    </div>
+                </div>
+                <div class="control-group" id="info-c">
+                    <label class="control-label" for="info">个性签名：</label>
+                    <div class="controls">
+                        <textarea class="span3" rows="5" id="info"></textarea>
+                        <p id="info-t">提交个性签名，来方便别人找到你。</p>
+                        <p>标有 <span style="color:#F00">*</span> 的为必填项。</p>
+                        <div id="message" class="alert alert-error" style="display:none">&nbsp;</p>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" onClick="regit();">确认注册</button>
+                    <button type="reset" class="btn">清空表单</button>
+                </div>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function regit(){
+        var ec=0;
+        var email=$("#email").val();
+        var name=$("#name").val();
+        if(email==""){
+            $("#email-c").removeClass("success").addClass("error");
+            $("#email-t").html("E-mail不能为空。");
+            ec++;
+        }
+        if(name==""){
+            $("#name-c").removeClass("success").addClass("error");
+            $("#name-t").html("显示昵称不能为空。");
+            ec++;
+        }
+        var pass=$("#password").val();
+        var repass=$("#repass").val();
+        if(pass==""){
+            $("#password-c").removeClass("success").addClass("error");
+            $("#password-t").html("密码不能为空。");
+            ec++;
+        }
+        if(repass!=pass){
+            $("#repass-c").removeClass("success").addClass("error");
+            $("#repass-t").html("两次密码不一致。");
+            ec++;
+        }else{
+            $("#repass-c").removeClass("error").addClass("success");
+            $("#repass-t").html("两次密码一致。");
+        }
+        if(ec==0){
+        $.get("/reg/checkinfo",{
+            "email" : encodeURI(email),
+            "name" : encodeURI(name),
+        },function(data){
+            data=data.split(",");
+            if(data[0]==1){
+                $("#email-c").removeClass("success").addClass("error");
+                $("#email-t").html("E-mail已被使用。");
+            }else{
+                $("#email-c").removeClass("error").addClass("success");
+                $("#email-t").html("通过。");
+            }
+            if(data[1]==1){
+                $("#name-c").removeClass("success").addClass("error");
+                $("#name-t").html("该昵称已被使用。");
+            }else{
+                $("#name-c").removeClass("error").addClass("success");
+                $("#name-t").html("通过。");
+            }
+            if(data[0]==0&&data[1]==0){
+                var info=$("#info").val();
+                $.post("/reg/insert",{
+                    "name" : name,
+                    "email" : email,
+                    "pass" : pass,
+                    "info" : info,
+                },function(data){
+                    if(data=="success"){
+                        alert("注册成功。");
+                        window.location.href="/";
+                    }else{
+                        $("#message").html(data).show();
+                    }
+                });
+            }
+        });
+        }
+    }
+    </script>
+</body>
+</html>

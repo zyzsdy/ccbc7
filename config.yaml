@@ -1,0 +1,8 @@
+appname: ccbc7
+version: 2
+handle:
+- compress: if( out_header["Content-Length"] >= 500 ) compress
+
+- rewrite: if ( !is_dir() && !is_file() && path ~ "^(.*)$" ) goto "index.php/$1"
+
+- errordoc: 404 /404.html

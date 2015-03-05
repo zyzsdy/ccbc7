@@ -1,0 +1,29 @@
+<p>登录记录：</p>
+<p>按用户筛选：<input type="text" placeholder="UID" id="login_uid"><button class="btn btn-primary" onclick="getUidLoginLog();">查询</button></p>
+<table class="table">
+    <thead>
+        <tr>
+        	<th>ID</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>IP</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="ulist" id="vo">
+        <tr>
+        	<td>{$vo.id}</td>
+            <td>{$vo.email}</td>
+            <td><a href="http://ccbc7.tk/user/view/uid/{$vo.uid}" target="_blank">{$vo.username}</a></td>
+            <td>{$vo.ltime}</td>
+            <td>{$vo.ip}</td>
+            <td><span id="ipadd_{$i}"></span></td>
+        </tr>
+    </volist>
+    </tbody>
+</table>
+<textarea id="ipstr" style="display:none">
+<volist name="ulist" id="vo">{$vo.ip};</volist>
+</textarea>

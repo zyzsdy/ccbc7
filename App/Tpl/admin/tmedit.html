@@ -1,0 +1,7 @@
+<h3>你正在编辑{$tmid}题目：</h3>
+<p>设定答案：<input type="text" id="timu_answer" placeholder="在此输入本题目答案。" size="50" maxlength="50" value="{$answer}"></p>
+<input type="hidden" value="{$tmid}" id="tmid">
+<textarea id="timueditor" class="span9" style="height:680px">{$content}</textarea>
+<p>&nbsp;</p>
+<p>可视化编辑器出错。请直接填写HTML代码。</p>
+<button class="btn" onClick="timu_submit();">提交修改</button>

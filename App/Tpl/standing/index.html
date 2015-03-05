@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>实时排名--CCBC-7</title>
+
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/tpl/style.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="http://ccbc7-static.stor.sinaapp.com/config/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .c7-titlename {
+        font-size: 30px;
+    }
+    .c6-tite li a{
+        color: #FFF;
+    }
+    .c6-tite li a:hover {
+        color: #333;
+    }
+    </style>
+</head>
+<body>
+<div style="position:fixed;bottom:60px;left:60px;height:25px;width:210px;background-color:#FFF;font-size:14px;line-height:25px;display:none" id="newmsg">
+	<a href="/game/home" style="color:red">您有新消息啦~请返回酒馆查看。</a>
+</div>
+
+
+    <div class="container-fluid">
+    <!--顶栏-->
+    <div class="row-fluid">
+        <div class="span8">
+            <a href="/"><img src="http://ccbc7-static.stor.sinaapp.com/img/logom.jpg" height="96" width="200"></a>
+            <span class="c7-titlename">实时排名</span>
+        </div>
+        <div class="span4">
+            <ul class="nav nav-pills c6-tite pull-right">
+                <li><a href="/user">{$Think.session.name}</a></li>
+                <li><a onClick="unlogin();" href="#">注销</a></li>
+                <eq name="Think.session.type" value="2">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>
+                <eq name="Think.session.type" value="4">
+                    <li><a href="/admin">后台登录</a></li>
+                </eq>    
+            </ul>
+
+        </div>
+    </div>
+    <!--main container-->
+    <div class="row-fluid">
+        <div class="offset1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>队伍名</th>
+                        <th>分区Meta个数</th>
+                        <th>总解题数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <volist name="ulist" id="vo">
+                    <tr>
+                        <td><a href="/user/view/uid/{$vo.u0}">{$vo.gname}</a><span class="label label-info">{$vo.gnum}人</span></td>
+                        <td>{$vo.metanum}</td>
+                        <td>{$vo.allnum}</td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    </div>
+<include file="http://ccbc7-static.stor.sinaapp.com/tpl/footer.html" />
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ccbc7-static.stor.sinaapp.com/config/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function unlogin(){
+        $.get("/login/unlogin",{},function(data){
+            if(data=="success"){
+                alert("成功注销");
+                window.location.href="/";
+            }else{
+                alert("注销失败。"+data);
+            }
+        });
+    }
+    $(document).ready(function(){
+    	$.get("/game/newmsg",{},function(data){
+			if(data==1) $("#newmsg").show(1000);
+			else $("#newmsg").hide(1000);
+    	});
+    	msgTimer = setInterval(function(){
+    		$.get("/game/newmsg",{},function(data){
+    			if(data==1) $("#newmsg").show(1000);
+    			else $("#newmsg").hide(1000);
+    		});
+    	},30000);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<h3>站内信：</h3>
+<p>发送给：</p>
+<p>GID：<input type="text" class="span6" placeholder="填写接收组的gid" id="rgid" value="{$r_rgid}"></p>
+<textarea class="span6" rows="5" placeholder="此处填写内容。" id="pm_content"></textarea>
+<p><button class="btn btn-primary" onclick="pm_send();">发送</button></p>
+<p>【发件箱】</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>发送时间</th>
+            <th>目标GID</th>
+            <th>内容</th>
+            <th>状态</th>
+        </tr>
+    </thead>
+    <tbody>
+    <volist name="spmlist" id="vo">
+        <tr>
+        	<td>{$vo.mid}</td>
+            <td>{$vo.sendtime}</td>
+            <td>{$vo.rgid}</td>
+            <td>{$vo.content}</td>
+            <td><eq name="vo.eu" value="1">已读<else/><span style="color:red;">未读</span></eq></td>
+        </tr>
+    </volist>
+    </tbody>
+</table>

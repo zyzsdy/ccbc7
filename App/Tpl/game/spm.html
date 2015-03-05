@@ -1,0 +1,13 @@
+<p>好啊客官。您写在下面吧。<a href="javascript:;" onclick="closep();">【关闭】</a></p>
+<eq name="Think.session.gid" value="0">
+个人用户站内信功能暂不开放。
+<else/>
+<textarea class="span6" rows="5" placeholder="此处填写内容。" id="pm_content"></textarea>
+<p><button class="btn btn-primary" onclick="pm_send();">发送</button></p>
+<p>【发件箱】</p>
+<volist name="spmlist" id="vo">
+    <hr>
+    <p><span style="font-size:12px;color:#CCC;">发送时间：{$vo.sendtime}</span></p>
+    <p>{$vo.content}</p>
+</volist>
+</eq>
